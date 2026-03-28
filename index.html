@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridMind - Solar Energy Solutions</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components/navbar.css">
+    <link rel="stylesheet" href="components/hero.css">
+    <link rel="stylesheet" href="components/landing.css">
+    <link rel="stylesheet" href="components/dashboard.css">
+    <link rel="stylesheet" href="components/ai-engine.css">
+
+    <!-- Chart.js for Usage Trend Graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="loader-screen" id="app-loader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Background Blobs -->
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+
+    <!-- LANDING NAVBAR -->
+    <div id="nav-landing" class="navbar-wrap">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <div
+                    style="width:24px;height:24px;background:var(--forest);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px">
+                    ☀</div>
+                GridMind
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <div class="nav-dropdown-wrapper">
+                    <a href="#feature-dashboard" class="nav-link">Features ▾</a>
+                    <div class="nav-dropdown">
+                        <a href="#feature-dashboard"><span style="font-size:1.1em; color:var(--lime)">⊞</span>
+                            Dashboard</a>
+                        <a href="#feature-marketplace"><span style="font-size:1.1em; color:#00C2FF">⇄</span>
+                            Marketplace</a>
+                        <a href="#feature-analytics"><span style="font-size:1.1em; color:#A855F7">📈</span>
+                            Analytics</a>
+                        <a href="#feature-settings"><span style="font-size:1.1em; color:#fff">⚙️</span> Settings</a>
+                    </div>
+                </div>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+            <button class="nav-btn" onclick="routeTo('login')">Get Started</button>
+        </nav>
+    </div>
+
+    <!-- APP NAVBAR -->
+    <div id="nav-app" class="navbar-wrap" style="display:none;">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <div
+                    style="width:24px;height:24px;background:var(--forest);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px">
+                    ☀</div>
+                GridMind
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link" onclick="routeTo('dashboard', 'overview', this)"><span
+                        style="font-size:1.1em">⊞</span> Dashboard</a>
+                <a href="#" class="nav-link" onclick="routeTo('dashboard', 'marketplace', this)"><span
+                        style="font-size:1.1em">⇄</span> Marketplace</a>
+                <a href="#" class="nav-link" onclick="routeTo('dashboard', 'analytics', this)"><span
+                        style="font-size:1.1em">📈</span> Analytics</a>
+                <a href="#" class="nav-link" onclick="routeTo('dashboard', 'ai', this)"><span
+                        style="font-size:1.1em">🤖</span> AI Engine</a>
+                <a href="#" class="nav-link" onclick="routeTo('dashboard', 'settings', this)"><span
+                        style="font-size:1.1em">⚙️</span> Settings</a>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;cursor:pointer;padding:6px 12px;background:rgba(0,0,0,0.05);border-radius:100px;font-size:0.9rem;font-weight:500;border:1px solid rgba(0,0,0,0.05);transition:0.2s"
+                onclick="localStorage.removeItem('gridmind_user_id'); routeTo('landing')" onmouseover="this.style.background='rgba(0,0,0,0.1)'"
+                onmouseout="this.style.background='rgba(0,0,0,0.05)'">
+                <img src="https://ui-avatars.com/api/?name=IA&background=0A1628&color=fff"
+                    style="width:24px;height:24px;border-radius:50%"> Logout
+            </div>
+        </nav>
+    </div>
+
+    <!-- LANDING PAGE VIEW -->
+    <div id="view-landing" class="page-view active">
+        <!-- Cinematic Hero -->
+        <header class="hero" id="home">
+            <div class="hero-art">
+                <div class="solar-field">
+                    <!-- Generate 60 panels for the hero effect -->
+                    <!-- JS will generate these to save file space, but I'll add a few inline for safety -->
+                    <script>
+                        for (let i = 0; i < 84; i++) {
+                            document.write('<div class="panel"></div>');
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <h1>
+                    <span class="serif-bold">GridMind-</span><br>
+                    <span class="serif-bold">An intellegent optimization </span>
+                    <span class="serif-italic text-lime">to your Solar Needs</span>
+                </h1>
+                <p>Delivering reliable, eco-friendly solar solutions designed to reduce energy costs while minimizing
+                    environmental impact.</p>
+                <button class="cta-lime" onclick="routeTo('login')">Get Started →</button>
+            </div>
+        </header>
+
+        <!-- ANALYTICS FEATURES SECTION -->
+        <section class="landing-features" id="features">
+            <div class="feature-card delay-1">
+                <div
+                    style="font-size:3.5rem; font-family:var(--f-mono); font-weight:bold; color:var(--lime); margin-bottom:12px; text-shadow:0 0 20px rgba(0,255,156,0.3)">
+                    <span class="f-num" data-val="92">0</span><span style="font-size:1.5rem">%</span>
+                </div>
+                <h3 class="f-title">Efficiency Rate</h3>
+                <p class="f-desc">⚡ +8% improvement this week</p>
+            </div>
+            <div class="feature-card delay-2">
+                <div
+                    style="font-size:3.5rem; font-family:var(--f-mono); font-weight:bold; color:#00C2FF; margin-bottom:12px; text-shadow:0 0 20px rgba(0,194,255,0.3)">
+                    <span class="f-num" data-val="4.6">0</span><span style="font-size:1.5rem"> kWh</span>
+                </div>
+                <h3 class="f-title">Energy Shared Today</h3>
+                <p class="f-desc">🔄 3 active connections</p>
+            </div>
+            <div class="feature-card delay-3">
+                <div
+                    style="font-size:3.5rem; font-family:var(--f-mono); font-weight:bold; color:#A855F7; margin-bottom:12px; text-shadow:0 0 20px rgba(168,85,247,0.3)">
+                    <span style="font-size:2.5rem">₹</span><span class="f-num" data-val="1240">0</span>
+                </div>
+                <h3 class="f-title">Profit Generated</h3>
+                <p class="f-desc">💰 From active energy trading</p>
+            </div>
+        </section>
+
+        <!-- FEATURE PREVIEWS -->
+        <section id="feature-previews"
+            style="padding: 40px 5% 100px; background: linear-gradient(180deg, #0B1F2A, #040B14); display: flex; flex-direction: column; gap: 100px; align-items: center;">
+
+            <!-- DASHBOARD PREVIEW -->
+            <div id="feature-dashboard" class="feature-card glass-dark"
+                style="width: 100%; max-width: 800px; opacity: 1; transform: translateY(0); display: block; text-align: left;">
+                <h3 style="color:var(--lime); margin-bottom: 24px; font-family:var(--f-hero); font-size:1.6rem">⊞
+                    Dashboard Overview</h3>
+                <div style="display:flex; gap:16px; flex-wrap:wrap">
+                    <div
+                        style="flex:1; min-width:150px; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:var(--text-muted); font-size:0.85rem; margin-bottom:8px">Solar Output</div>
+                        <div style="color:#fff; font-size:1.8rem; font-weight:bold; font-family:var(--f-mono)">8.4 <span
+                                style="font-size:1rem; color:#666">kW</span></div>
+                    </div>
+                    <div
+                        style="flex:1; min-width:150px; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:var(--text-muted); font-size:0.85rem; margin-bottom:8px">Grid Export</div>
+                        <div style="color:#00C2FF; font-size:1.8rem; font-weight:bold; font-family:var(--f-mono)">3.2
+                            <span style="font-size:1rem; color:#666">kW</span></div>
+                    </div>
+                    <div
+                        style="flex:1; min-width:150px; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:var(--text-muted); font-size:0.85rem; margin-bottom:8px">Savings</div>
+                        <div style="color:var(--lime); font-size:1.8rem; font-weight:bold; font-family:var(--f-mono)">
+                            ₹1240</div>
+                    </div>
+                    <div
+                        style="flex:1; min-width:150px; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:var(--text-muted); font-size:0.85rem; margin-bottom:8px">Profit Generated</div>
+                        <div style="color:#A855F7; font-size:1.8rem; font-weight:bold; font-family:var(--f-mono)">₹22.6k
+                            <span style="font-size:1rem; color:#666"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MARKETPLACE PREVIEW -->
+            <div id="feature-marketplace" class="feature-card glass-dark"
+                style="width: 100%; max-width: 800px; opacity: 1; transform: translateY(0); display: block; text-align: left;">
+                <h3 style="color:#00C2FF; margin-bottom: 24px; font-family:var(--f-hero); font-size:1.6rem">⇄
+                    Peer-to-Peer Marketplace</h3>
+                <div
+                    style="background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.05); overflow:hidden">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:#fff; display:flex; align-items:center; gap:12px; font-weight:500"><img
+                                src="https://ui-avatars.com/api/?name=U+A&background=random"
+                                style="width:32px; border-radius:50%"> User A</div>
+                        <div style="color:#fff; font-family:var(--f-mono)">2.5 kWh</div>
+                        <div style="color:var(--lime); font-family:var(--f-mono); font-weight:bold">₹6/unit</div>
+                        <button
+                            style="background:rgba(0,255,156,0.1); color:var(--lime); border:1px solid var(--lime); padding:8px 24px; border-radius:100px; font-weight:bold; box-shadow:0 0 10px rgba(0,255,156,0.2)">Buy</button>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px;">
+                        <div style="color:#fff; display:flex; align-items:center; gap:12px; font-weight:500"><img
+                                src="https://ui-avatars.com/api/?name=U+B&background=random"
+                                style="width:32px; border-radius:50%"> User B</div>
+                        <div style="color:#fff; font-family:var(--f-mono)">1.8 kWh</div>
+                        <div style="color:#00C2FF; font-family:var(--f-mono); font-weight:bold">₹5.5/unit</div>
+                        <button
+                            style="background:rgba(0,194,255,0.1); color:#00C2FF; border:1px solid #00C2FF; padding:8px 24px; border-radius:100px; font-weight:bold; box-shadow:0 0 10px rgba(0,194,255,0.2)">Buy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANALYTICS PREVIEW -->
+            <div id="feature-analytics" class="feature-card glass-dark"
+                style="width: 100%; max-width: 800px; opacity: 1; transform: translateY(0); display: block; text-align: left;">
+                <h3 style="color:#A855F7; margin-bottom: 24px; font-family:var(--f-hero); font-size:1.6rem">📈 Weekly
+                    Analytics Trend</h3>
+                <div
+                    style="display:flex; align-items:flex-end; gap:8px; height:180px; padding:24px; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                    <div style="flex:1; background:var(--forest); height:30%; border-radius:4px 4px 0 0; opacity:0.6">
+                    </div>
+                    <div style="flex:1; background:var(--forest); height:50%; border-radius:4px 4px 0 0; opacity:0.7">
+                    </div>
+                    <div
+                        style="flex:1; background:var(--lime); height:100%; border-radius:4px 4px 0 0; box-shadow:0 0 20px rgba(0,255,156,0.5)">
+                    </div>
+                    <div style="flex:1; background:var(--forest); height:45%; border-radius:4px 4px 0 0; opacity:0.8">
+                    </div>
+                    <div style="flex:1; background:var(--forest); height:70%; border-radius:4px 4px 0 0; opacity:0.9">
+                    </div>
+                    <div style="flex:1; background:var(--forest); height:40%; border-radius:4px 4px 0 0; opacity:0.6">
+                    </div>
+                    <div style="flex:1; background:var(--forest); height:80%; border-radius:4px 4px 0 0; opacity:0.9">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS PREVIEW -->
+            <div id="feature-settings" class="feature-card glass-dark"
+                style="width: 100%; max-width: 800px; opacity: 1; transform: translateY(0); display: block; text-align: left;">
+                <h3 style="color:#fff; margin-bottom: 24px; font-family:var(--f-hero); font-size:1.6rem">⚙️ Preferences
+                </h3>
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:center; padding:20px; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:#fff; font-weight:500; font-size:1.1rem">Auto Energy Optimization <div
+                                style="color:var(--text-muted); font-size:0.85rem; font-weight:normal; margin-top:4px">
+                                Automatically trade excess power during peak hours</div>
+                        </div>
+                        <div data-active="true" onclick="toggleDemoSetting(this)" style="width:48px;height:24px;background:var(--lime);border-radius:24px;position:relative;cursor:pointer;transition:background 0.3s">
+                            <div
+                                style="width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;box-shadow:0 0 10px rgba(0,0,0,0.5);transition:transform 0.3s ease;transform:translateX(24px);">
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:center; padding:20px; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.05)">
+                        <div style="color:#fff; font-weight:500; font-size:1.1rem">Grid Sync Notifications <div
+                                style="color:var(--text-muted); font-size:0.85rem; font-weight:normal; margin-top:4px">
+                                Receive alerts when grid thresholds are met</div>
+                        </div>
+                        <div data-active="false" onclick="toggleDemoSetting(this)" style="width:48px;height:24px;background:rgba(255,255,255,0.2);border-radius:24px;position:relative;cursor:pointer;transition:background 0.3s">
+                            <div
+                                style="width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;box-shadow:0 0 10px rgba(0,0,0,0.5);transition:transform 0.3s ease;transform:translateX(0);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" style="padding:100px 10%; background:var(--bg-white); text-align:center;">
+            <h2 class="serif-bold" style="font-size:2.5rem; color:var(--text-dark); margin-bottom:20px;">Intelligent
+                Energy Management</h2>
+            <p style="font-size:1.1rem; color:#444; max-width:700px; line-height:1.6; margin:0 auto 40px;">
+                GridMind is building the backbone of decentralized energy distribution. Our AI-powered algorithms ensure
+                peak solar efficiency, automated trading networks, and transparent carbon offset analytics for a more
+                sustainable tomorrow.
+            </p>
+            <button class="cta-lime" onclick="routeTo('login')"
+                style="background:var(--lime);border:none;padding:16px 32px;border-radius:100px;font-weight:bold;cursor:pointer;">Get
+                Started →</button>
+        </section>
+
+    </div> <!-- /view-landing -->
+
+    <!-- LOGIN PAGE VIEW -->
+    <div id="view-login" class="page-view">
+        <div
+            style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #0B192C 0%, #040B14 100%);">
+            <div class="glass-dark"
+                style="width: 100%; max-width: 420px; padding: 40px; border-radius: 24px; text-align: center;">
+                <h2 class="serif-bold" style="color: #fff; font-size: 2rem; margin-bottom: 8px;">Welcome Back</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 32px;">Sign in to manage your
+                    energy intelligently</p>
+
+                <div style="text-align: left; margin-bottom: 20px;">
+                    <label
+                        style="color: #fff; font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; display: block;">Email</label>
+                    <input type="email" id="login-email" placeholder="name@company.com"
+                        style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: #fff; font-family: var(--f-body); outline: none;"
+                        onfocus="this.style.borderColor='var(--lime)'"
+                        onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+
+                <div style="text-align: left; margin-bottom: 24px;">
+                    <div class="flex justify-b" style="margin-bottom: 8px;">
+                        <label style="color: #fff; font-size: 0.85rem; font-weight: 500;">Password</label>
+                        <a href="#" style="color: var(--lime); font-size: 0.8rem; text-decoration: none;">Forgot?</a>
+                    </div>
+                    <input type="password" id="login-password" placeholder="••••••••"
+                        style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: #fff; font-family: var(--f-body); outline: none;"
+                        onfocus="this.style.borderColor='var(--lime)'"
+                        onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+
+                <div class="flex align-c" style="margin-bottom: 32px; gap: 8px;">
+                    <input type="checkbox" id="remember" style="accent-color: var(--lime); width: 16px; height: 16px;">
+                    <label for="remember" style="color: var(--text-muted); font-size: 0.85rem;">Remember me</label>
+                </div>
+
+                <div id="login-error" style="color: #e74c3c; font-size: 0.85rem; margin-bottom: 16px; display: none;"></div>
+
+                <button class="cta-lime" style="width: 100%; padding: 16px;" onclick="handleLogin(this)">Login
+                    →</button>
+
+                <div style="margin-top: 24px; font-size: 0.9rem; color: var(--text-muted);">
+                    Don't have an account? <a href="#"
+                        style="color: var(--lime); text-decoration: none; font-weight: bold;">Create Account</a>
+                </div>
+
+                <div class="flex justify-b gap-2"
+                    style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px;">
+                    <button
+                        style="flex:1; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: #fff; cursor: pointer;">Google</button>
+                    <button
+                        style="flex:1; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: #fff; cursor: pointer;">Apple</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD PAGE VIEW -->
+    <div id="view-dashboard" class="page-view">
+        <!-- Dashboard Area -->
+        <main class="dashboard-area">
+            <div style="height:32px"></div>
+
+            <!-- SCREEN 1: Overview -->
+            <div id="screen-overview" class="screen active">
+                <div class="kpi-grid" style="margin-bottom: 50px; gap: 24px;">
+                    <div class="glass-light kpi-card">
+                        <div class="kpi-lbl">☀️ Solar Output</div>
+                        <div class="kpi-val f-mono" id="dash-solar">-- <span style="font-size:1rem;color:#666">kW</span></div>
+                        <div class="kpi-sub text-forest">+12% vs yesterday</div>
+                    </div>
+                    <div class="glass-light kpi-card">
+                        <div class="kpi-lbl">⚡ Grid Export</div>
+                        <div class="kpi-val f-mono" id="dash-export">-- <span style="font-size:1rem;color:#666">kW</span></div>
+                        <div class="kpi-sub" style="color:#666">Active P2P sharing</div>
+                    </div>
+                    <div class="glass-light kpi-card">
+                        <div class="kpi-lbl">💰 Total Balance</div>
+                        <div class="kpi-val f-mono" id="dash-balance">₹--</div>
+                        <div class="kpi-sub text-forest">Current Wallet</div>
+                    </div>
+                    <div class="glass-light kpi-card"
+                        style="border-bottom: 3px solid var(--lime); background: rgba(0,255,156,0.02)">
+                        <div class="kpi-lbl">💰 Today's Earnings</div>
+                        <div class="kpi-val f-mono text-forest" id="dash-earnings">₹--</div>
+                        <div class="kpi-sub text-forest" style="font-weight:500;">From energy trading today</div>
+                    </div>
+                </div>
+
+                <div class="dash-row">
+                    <div class="glass-light">
+                        <div class="flex justify-b align-c">
+                            <h3 class="serif-bold" style="font-size:1.4rem;color:var(--forest)">Energy Production vs
+                                Consumption</h3>
+                            <div class="flex gap-2 f-mono" style="font-size:0.8rem">
+                                <span style="color:var(--lime);font-weight:bold">● Production</span>
+                                <span style="color:var(--sky-blue);font-weight:bold">● Consumption</span>
+                            </div>
+                        </div>
+                        <svg class="chart-svg" viewBox="0 0 800 250" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="area-lime" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="rgba(168,255,0,0.3)" />
+                                    <stop offset="100%" stop-color="rgba(168,255,0,0)" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Grid Lines -->
+                            <line x1="0" y1="50" x2="800" y2="50" class="axis-line" />
+                            <line x1="0" y1="125" x2="800" y2="125" class="axis-line" />
+                            <line x1="0" y1="200" x2="800" y2="200" class="axis-line" />
+
+                            <!-- Lines -->
+                            <path d="M0,200 Q100,100 200,150 T400,50 T600,100 T800,20" class="line-p" />
+                            <path d="M0,200 Q100,100 200,150 T400,50 T600,100 T800,20 L800,250 L0,250 Z"
+                                fill="url(#area-lime)" />
+
+                            <path d="M0,150 Q100,200 200,140 T400,160 T600,110 T800,130" class="line-c" />
+
+                            <!-- Axis Labels -->
+                            <text x="0" y="240" class="f-mono" font-size="12" fill="#666">00:00</text>
+                            <text x="380" y="240" class="f-mono" font-size="12" fill="#666">12:00</text>
+                            <text x="760" y="240" class="f-mono" font-size="12" fill="#666">24:00</text>
+                        </svg>
+                    </div>
+
+                    <div class="glass-light flex" style="flex-direction:column">
+                        <h3 class="serif-bold" style="font-size:1.4rem;color:var(--forest)">Live Field Optimization</h3>
+                        <p style="font-size:0.9rem;color:#666;margin-top:8px">AI active tracking and panel angular
+                            adjustment in real-time.</p>
+
+                        <div class="solar-farm-widget">
+                            <div class="panel-grid">
+                                <script>
+                                    for (let i = 0; i < 40; i++) {
+                                        document.write('<div class="panel-cell"></div>');
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
+                        <button class="cta-lime"
+                            style="margin-top:auto;padding:12px;font-size:0.9rem;border-radius:8px">Run
+                            Diagnostics</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCREEN 2: Marketplace -->
+            <div id="screen-marketplace" class="screen">
+                <div class="dash-row">
+                    <div class="glass-light flex" style="flex-direction:column">
+                        <h3 class="serif-bold" style="font-size:1.4rem;color:var(--forest);margin-bottom:20px">
+                            Marketplace
+                        </h3>
+                        <div id="marketplace-peers" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+                            <!-- Peers will be populated here -->
+                            <div style="color: #666; font-style: italic;">Loading peers...</div>
+                        </div>
+                    </div>
+                    <div class="glass-light" style="position:sticky;top:20px;height:fit-content">
+                        <div
+                            style="font-family:var(--f-disp);color:var(--forest);font-size:1.2rem;margin-bottom:20px;font-weight:bold">
+                            ⚡ New Transaction</div>
+                        <div class="f-mono" style="margin-bottom:20px">
+                            <div style="color:#666;margin-bottom:8px">Amount (kWh)</div>
+                            <input type="number" value="24"
+                                style="width:100%;padding:12px;border:1px solid rgba(0,0,0,0.1);border-radius:8px;font-family:var(--f-mono)" oninput="document.getElementById('total-rate-val').innerText = '₹ ' + (this.value * 4.2).toFixed(2)">
+                        </div>
+                        <div
+                            style="background:rgba(168,255,0,0.1);border:1px solid var(--lime);padding:16px;border-radius:8px;margin-bottom:16px">
+                            <div class="flex justify-b f-mono"><span>Total Rate</span><span id="total-rate-val" class="text-forest"
+                                    style="font-weight:bold;font-size:1.2rem">₹ 100.80</span></div>
+                        </div>
+                        <button class="cta-lime" style="width:100%">CONFIRM TRADE</button>
+                        <div
+                            style="margin-top:20px;font-size:0.85rem;color:#666;border-top:1px solid rgba(0,0,0,0.1);padding-top:16px">
+                            <div class="flex justify-b" style="margin-bottom:8px"><span>Rahul → Grid</span><span
+                                    class="text-forest">✓ ₹50.40</span></div>
+                            <div class="flex justify-b"><span>Amit → EV Station</span><span class="text-forest">✓
+                                    ₹142.80</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCREEN 3: Analytics -->
+            <div id="screen-analytics" class="screen">
+                <div class="dash-row">
+                    <div class="glass-light flex" style="flex-direction:column">
+                        <h3 class="serif-bold" style="font-size:1.4rem;color:var(--forest);margin-bottom:20px">Usage Trends</h3>
+                        <div style="width: 100%; height: 200px; margin-top: auto;">
+                            <canvas id="usageTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-light flex align-c justify-b" style="flex-direction:column;text-align:center">
+                        <h3 class="serif-bold" style="font-size:1.4rem;color:var(--forest)">Energy Reused</h3>
+                        <svg style="width:150px;height:75px;margin-top:20px;overflow:visible" viewBox="0 0 160 80">
+                            <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="rgba(0,0,0,0.05)"
+                                stroke-width="15" stroke-linecap="round" />
+                            <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="#A855F7" stroke-width="15"
+                                stroke-linecap="round" stroke-dasharray="235" stroke-dashoffset="60"
+                                style="filter:drop-shadow(0 0 4px rgba(168,85,247,0.5))" />
+                        </svg>
+                        <div class="serif-bold" style="font-size:1.5rem;margin-top:-10px;color:var(--forest)">124.5 kWh
+                        </div>
+                        <div class="f-mono" style="font-size:0.8rem;color:#666;margin-top:8px">From local peers</div>
+                    </div>
+                </div>
+                <div class="kpi-grid" style="margin-top:20px">
+                    <div class="glass-light" style="text-align:center;padding:20px">
+                        <div class="f-mono text-forest" style="font-size:2rem;font-weight:bold">99.9<span
+                                style="font-size:1rem">%</span></div>
+                        <div class="f-mono" style="font-size:0.8rem;color:#666">UPTIME</div>
+                    </div>
+                    <div class="glass-light" style="text-align:center;padding:20px">
+                        <div class="f-mono text-forest" style="font-size:2rem;font-weight:bold">100<span
+                                style="font-size:1rem">%</span></div>
+                        <div class="f-mono" style="font-size:0.8rem;color:#666">GRID SYNC</div>
+                    </div>
+                    <div class="glass-light" style="text-align:center;padding:20px">
+                        <div class="f-mono text-forest" style="font-size:2rem;font-weight:bold">482</div>
+                        <div class="f-mono" style="font-size:0.8rem;color:#666">AI CYCLES/HR</div>
+                    </div>
+                    <div class="glass-light" style="text-align:center;padding:20px">
+                        <div class="f-mono text-forest" style="font-size:2rem;font-weight:bold">94</div>
+                        <div class="f-mono" style="font-size:0.8rem;color:#666">EFFICIENCY</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCREEN 4: Settings -->
+            <div id="screen-settings" class="screen">
+                <div class="dash-row" style="grid-template-columns:1fr 2fr">
+                    <div class="glass-light" style="text-align:center">
+                        <div
+                            style="width:100px;height:100px;background:var(--forest);border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--f-disp);font-size:2rem;font-weight:bold">
+                            IA</div>
+                        <div class="serif-bold" style="font-size:1.5rem;color:var(--text-dark)">Ishita A.</div>
+                        <div class="f-mono" style="font-size:0.9rem;color:#666;margin-bottom:24px">📍 New Delhi</div>
+                        <div class="flex" style="border-top:1px solid rgba(0,0,0,0.1);padding-top:20px">
+                            <div style="flex:1">
+                                <div class="f-mono text-forest" style="font-weight:bold;font-size:1.2rem">342</div>
+                                <div class="f-mono" style="font-size:0.75rem;color:#666">Trades</div>
+                            </div>
+                            <div style="flex:1">
+                                <div class="f-mono text-forest" style="font-weight:bold;font-size:1.2rem">1.4T</div>
+                                <div class="f-mono" style="font-size:0.75rem;color:#666">Profit Earned</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-light">
+                        <h3 class="serif-bold" style="font-size:1.4rem;color:var(--forest);margin-bottom:20px">System
+                            Preferences</h3>
+
+                        <div class="flex justify-b align-c"
+                            style="border-bottom:1px solid rgba(0,0,0,0.05);padding:16px 0">
+                            <div>
+                                <div style="font-weight:500">Auto-sell excess energy</div>
+                                <div class="f-mono" style="font-size:0.8rem;color:#666">Allow AI to automatically trade
+                                </div>
+                            </div>
+                            <input type="checkbox" checked style="width:20px;height:20px;accent-color:var(--lime)">
+                        </div>
+                        <div class="flex justify-b align-c"
+                            style="border-bottom:1px solid rgba(0,0,0,0.05);padding:16px 0">
+                            <div>
+                                <div style="font-weight:500">Night mode optimization</div>
+                                <div class="f-mono" style="font-size:0.8rem;color:#666">Shift loads to off-peak</div>
+                            </div>
+                            <input type="checkbox" checked style="width:20px;height:20px;accent-color:var(--lime)">
+                        </div>
+
+                        <div style="margin-top:24px">
+                            <div class="flex justify-b" style="margin-bottom:12px"><span style="font-weight:500">Battery
+                                    Reserve Min</span><span id="battery-val" class="f-mono text-forest">20%</span></div>
+                            <input type="range" min="0" max="100" value="20"
+                                style="width:100%;accent-color:var(--lime)" oninput="document.getElementById('battery-val').innerText = this.value + '%'">
+                        </div>
+
+                        <div style="display:flex; justify-content:center; margin-top:30px">
+                            <div
+                                style="border:1px solid var(--lime); padding:20px 24px; border-radius:12px; width:100%; max-width:500px; background:rgba(0,255,156,0.05); box-shadow:0 0 20px rgba(0,255,156,0.15)">
+                                <div class="flex justify-b align-c">
+                                    <div class="flex gap-2 align-c">
+                                        <div style="font-size:1.8rem; text-shadow:0 0 10px rgba(0,255,156,0.5)">⚡</div>
+                                        <div style="font-weight:bold; font-size:1.1rem; color:var(--forest)">Smart Meter
+                                        </div>
+                                    </div>
+                                    <div class="f-mono text-forest"
+                                        style="font-size:0.85rem; font-weight:bold; padding:4px 10px; background:rgba(0,255,156,0.2); border-radius:100px;">
+                                        ● ACTIVE & LIVE
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div> <!-- /view-dashboard -->
+
+    <!-- AI ENGINE STYLES -->
+    
+
+    <!-- ══ AI ENGINE SCREEN (injected into dashboard) ══ -->
+    
+
+    <script src="js/api-client.js"></script>
+    <script src="js/ai-screen.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/ai-engine.js"></script>
+    <script src="js/ui.js?v=2"></script>
+</body>
+
+</html>

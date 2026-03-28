@@ -1,0 +1,177 @@
+/* ============================================
+   style.css — Global styles, variables, resets,
+   typography helpers, utility classes
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --bg-sky: #D6EEF8;
+    --bg-white: #F0F8FF;
+    --bg-card: rgba(255, 255, 255, 0.18);
+    --bg-card-dark: rgba(0, 0, 0, 0.35);
+    --lime: #00FF9C;
+    --lime-dark: #00CC7D;
+    --lime-glow: rgba(0, 255, 156, 0.25);
+    --forest: #2D6A4F;
+    --leaf: #52B788;
+    --sky-blue: #87CEEB;
+    --cloud-white: rgba(255, 255, 255, 0.85);
+    --text-dark: #0A1628;
+    --text-light: #FFFFFF;
+    --text-muted: rgba(255, 255, 255, 0.7);
+
+    --f-hero: 'Playfair Display', serif;
+    --f-body: 'DM Sans', sans-serif;
+    --f-mono: 'Space Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--f-body);
+    background: linear-gradient(135deg, #D6EEF8 0%, #E8F5E9 50%, #F0F8FF 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+.blob-1 {
+    background: radial-gradient(circle, rgba(168, 255, 0, 0.15), transparent 70%);
+    width: 600px;
+    height: 600px;
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: -1;
+}
+
+.blob-2 {
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.2), transparent 70%);
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    bottom: -150px;
+    left: -150px;
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: -1;
+}
+
+/* Typography */
+.serif-bold {
+    font-family: var(--f-hero);
+    font-weight: 700;
+}
+
+.serif-italic {
+    font-family: var(--f-hero);
+    font-weight: 700;
+    font-style: italic;
+}
+
+.f-mono {
+    font-family: var(--f-mono);
+}
+
+.f-body {
+    font-family: var(--f-body);
+}
+
+.text-lime {
+    color: var(--lime);
+}
+
+.text-forest {
+    color: var(--forest);
+}
+
+/* Utility classes */
+.flex {
+    display: flex;
+}
+
+.justify-b {
+    justify-content: space-between;
+}
+
+.align-c {
+    align-items: center;
+}
+
+.gap-2 {
+    gap: 16px;
+}
+
+/* Shared keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive — global overrides */
+@media(max-width: 1024px) {
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dash-row {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        bottom: 5%;
+        right: 5%;
+    }
+}
+
+@media(max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .navbar {
+        width: 95%;
+        padding: 10px 16px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero-stats {
+        display: none;
+    }
+
+    .dashboard-area {
+        padding: 4rem 5%;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-nav {
+        flex-wrap: wrap;
+    }
+}
